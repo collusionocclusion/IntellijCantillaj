@@ -11,6 +11,10 @@ jps_test(
 
 ### skip generation section `test intellij.java.manifest.tests`
 
+### auto-generated section `dev intellij.java.manifest` start
+content_module_jar(module = ":manifest")
+### auto-generated section `dev intellij.java.manifest` end
+
 ### auto-generated section `build intellij.java.manifest` start
 jvm_library(
     name = "manifest",
@@ -50,8 +54,6 @@ jvm_library(
         "//libraries/kotlinx/collections-immutable:libraries-kotlinx-collections-immutable",
     ],
 )
-
-content_module_jar(module = ":manifest")
 
 jvm_library(
     name = "manifest_test_lib",
@@ -179,8 +181,6 @@ jvm_library(
         "//platform/structure-view-impl/plugin:plugin_test_lib",
         "//platform/todo/plugin",
         "//platform/todo/plugin:plugin_test_lib",
-        "//libraries/misc/plugin",
-        "//libraries/misc/plugin:plugin_test_lib",
         "//libraries/junit4",
         "//libraries/junit4:junit4_test_lib",
     ],

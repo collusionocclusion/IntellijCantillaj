@@ -27,6 +27,7 @@ import com.intellij.rt.coverage.data.LineData;
 import com.intellij.rt.coverage.data.ProjectData;
 import com.intellij.rt.coverage.data.SwitchData;
 import com.intellij.util.ArrayUtil;
+import com.intellij.util.concurrency.ThreadingAssertions;
 import com.intellij.util.containers.ContainerUtil;
 import org.jacoco.agent.AgentJar;
 import org.jacoco.core.analysis.Analyzer;
@@ -63,7 +64,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.intellij.openapi.diagnostic.LoggerKt.rethrowControlFlowException;
+import static com.intellij.diagnostic.ControlFlowExceptionsKt.rethrowControlFlowException;
 
 public final class JaCoCoCoverageRunner extends JavaCoverageRunner {
   private static final Logger LOG = Logger.getInstance(JaCoCoCoverageRunner.class);
@@ -108,6 +109,7 @@ public final class JaCoCoCoverageRunner extends JavaCoverageRunner {
     @Nullable CoverageSuite coverageSuite,
     @NotNull CoverageLoadErrorReporter reporter
   ) {
+    ThreadingAssertions.assertBackgroundThread();
     if (!(coverageSuite instanceof JavaCoverageSuite javaSuite)) {
       return new FailedCoverageLoadingResult("Unsupported coverage suite: " + coverageSuite);
     }
